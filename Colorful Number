@@ -1,0 +1,38 @@
+int Solution::colorful(int A) {
+    
+    set<int> s;
+    
+    int n = 0;
+    int timepass = A;
+    while(timepass) {
+        n++;
+        timepass /= 10;
+    }
+    
+    timepass = A;
+    vector<int> v;
+    while(timepass) {
+        v.push_back(timepass%10);
+        timepass /= 10;
+    }
+    reverse(v.begin(), v.end());
+    int temp;
+    for(int i=0; i<n; i++) {
+        temp = v[i];
+        if(s.find(temp) != s.end()) {
+            return 0;
+        } else {
+            s.insert(temp);
+        }
+        for(int j=i+1; j<n; j++) {
+            temp *= v[j];
+            if(s.find(temp) != s.end()) {
+                return 0;
+            } else {
+                s.insert(temp);
+            }
+        }
+    }
+    
+    return 1;
+}
